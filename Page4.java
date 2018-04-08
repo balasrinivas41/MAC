@@ -1,5 +1,10 @@
+package DataObjects;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javax.swing.*;
 
 
@@ -9,7 +14,7 @@ class Page4
 
 public static void main(String[] args)
 {
-ColorsFrame frame=new ColorsFrame();
+	ColorsFrame3 frame=new ColorsFrame3();
 //System.out.println("Hello world");
 
 }
@@ -21,7 +26,7 @@ ColorsFrame frame=new ColorsFrame();
 
 
 
-class ColorsFrame extends Frame implements ActionListener
+class ColorsFrame3 extends Frame implements ActionListener
 {
 Button b1,b2,b3;
 Label name;
@@ -32,11 +37,11 @@ TextField t1,t2;
 Panel controlpanel;
 
 
-ColorsFrame()
+ColorsFrame3()
 {
 this.setVisible(true);
 this.setSize(700,700);
-this.setTitle("Button Example");
+this.setTitle("Page4");
 controlpanel=new Panel();
 controlpanel.setLayout(new FlowLayout());
 name=new Label("Subject:");
@@ -97,14 +102,131 @@ String button_label=ae.getActionCommand();
 
 if(button_label.equals("submit"))
 {
-String user=t2.getText();
-if(user.equals("bala"))
-{//JOptionPane.showMessageDialog(this," correct password");
+	
+JOptionPane.showMessageDialog(this,"u clicked submit button","Error Message Box",JOptionPane.ERROR_MESSAGE);
+
+String subj=t1.getText();
+String obj=t2.getText();
+
+System.out.println("subject is"+subj);
+
+System.out.println("object is"+obj);
+
+
+
+
+try{
+
+Connection Con= DbConnection.GetDbConnection();
+JOptionPane.showMessageDialog(this," established");
+
+Statement stmt = null;	 stmt = Con.createStatement();
+String s="subject";
+
+String sql = "SELECT securitylevel FROM seclevel where username='" +subj+"' and type1='"+s+"' ";
+ResultSet rs,rs1,rs2; 
+rs= stmt.executeQuery(sql);
+
+
+String sublev="o";
+while(rs.next()){
+    //Retrieve by column name
+	  sublev= rs.getString("securitylevel");
+	  
+	 
+	  
+	 System.out.println("security level of subject is: " + sublev);
+
+    }
+
+
+String s1="object";
+
+String sql1 = "SELECT securitylevel FROM seclevel where username='" +obj+"' and type1='"+s1+"' ";
+
+rs1= stmt.executeQuery(sql1);
+//int set=99;
+
+String objlev="o";
+while(rs1.next()){
+    //Retrieve by column name
+	  objlev= rs1.getString("securitylevel");
+	  
+	 
+	  
+	 System.out.println("security level of object is: " + objlev);
+
+    }
+
+
+if(!(sublev.equals("o")) || !(objlev.equals("o")))
+{
+	
+	JOptionPane.showMessageDialog(this,"every thing is ok! ");
+	
+	
+	
+	
+	String sql2 = "SELECT cat FROM seccat where username='" +subj+"' and type1='"+s+"' ";
+
+	rs2= stmt.executeQuery(sql2);
+	//int set=99;
+	int i1=0;
+	
+
+	String objcat[]=new String[10];
+	while(rs2.next()){
+	    //Retrieve by column name
+		  objcat[i1]= rs2.getString("cat");
+		 
+		  
+		System.out.println("category of subject is: " + objcat[i1]);
+		
+		 i1++;
+
+	    }
+	
+	
+	System.out.println("category of subject is: " + i1);
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
-else{
-//JOptionPane.showMessageDialog(this,"wrong password","Error Message Box",JOptionPane.ERROR_MESSAGE);
+
+
+if((sublev.equals("o")) || (objlev.equals("o")))
+{
+	
+	JOptionPane.showMessageDialog(this,"every thing is not ok! ");
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+Con.close();
+}catch(Exception e){
+	
+	
+}
+
+
 //this.setBackground(Color.red);
 }
 
