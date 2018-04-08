@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class RoleReg {
 	
 	
-	public static void mains(String[] args)
+	public static void main(String[] args)
 	{
 	ColorsFrame1 frame=new ColorsFrame1();
 	//System.out.println("Hello world");
@@ -451,7 +451,7 @@ public class RoleReg {
 	//}
 	//end class
 
-
+	//done by bala
 
 
 

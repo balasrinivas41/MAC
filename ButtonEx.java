@@ -12,7 +12,7 @@ public class ButtonEx
 {
 
 
-public static void mains(String[] args)
+public static void main(String[] args)
 {
 ColorsFrame frame=new ColorsFrame();
 //System.out.println("Hello world");
@@ -94,9 +94,9 @@ if(button_label.equals("Login"))
 	
 String user=t1.getText();
 String pd1=t2.getText();
-if(user.equals("bala")){
+/*if(user.equals("bala")){
 JOptionPane.showMessageDialog(this," correct password");
-}
+}*/
 
 
 try{
@@ -139,6 +139,10 @@ try{
      {
     	 System.out.println("not printing password2 ");
     	 JOptionPane.showMessageDialog(this,"password matches bala");
+    	 
+    	 this.setVisible(false);
+    	 ColorsFrame1 frame=new ColorsFrame1();
+    	 
     	 }
   
      
@@ -147,6 +151,7 @@ try{
      else
      {
     	 System.out.println("not mached ");
+    	 //this.setVisible(false);
     	 JOptionPane.showMessageDialog(this,"notmached");
     	
     	 
